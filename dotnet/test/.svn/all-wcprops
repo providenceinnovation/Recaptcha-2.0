@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/212/trunk/recaptcha-plugins/dotnet/test
+END
+Recaptcha.Test-CLR2.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/192/trunk/recaptcha-plugins/dotnet/test/Recaptcha.Test-CLR2.csproj
+END
+FormView.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/FormView.aspx
+END
+Recaptcha.Test-CLR4.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/212/trunk/recaptcha-plugins/dotnet/test/Recaptcha.Test-CLR4.csproj
+END
+MultiViewInUpdatePanel.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/MultiViewInUpdatePanel.aspx
+END
+UpdatePanel.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/UpdatePanel.aspx
+END
+FormView.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/FormView.aspx.cs
+END
+Iframe.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/191/trunk/recaptcha-plugins/dotnet/test/Iframe.aspx.designer.cs
+END
+UpdatePanel.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/UpdatePanel.aspx.cs
+END
+Iframe.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/191/trunk/recaptcha-plugins/dotnet/test/Iframe.aspx.cs
+END
+ValidationGroup.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/130/trunk/recaptcha-plugins/dotnet/test/ValidationGroup.aspx
+END
+Web-CLR2.config
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/147/trunk/recaptcha-plugins/dotnet/test/Web-CLR2.config
+END
+Web-CLR4.config
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/147/trunk/recaptcha-plugins/dotnet/test/Web-CLR4.config
+END
+ListView.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/ListView.aspx.designer.cs
+END
+ValidationSummary.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/ValidationSummary.aspx.designer.cs
+END
+CreateUserWizardCustom.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/123/trunk/recaptcha-plugins/dotnet/test/CreateUserWizardCustom.aspx
+END
+CreateUserWizardCustom.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/123/trunk/recaptcha-plugins/dotnet/test/CreateUserWizardCustom.aspx.cs
+END
+CreateUserWizard.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/CreateUserWizard.aspx
+END
+Default.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/Default.aspx.designer.cs
+END
+MultiView.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/MultiView.aspx.designer.cs
+END
+MultiView.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/MultiView.aspx.cs
+END
+CustomTranslation.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/192/trunk/recaptcha-plugins/dotnet/test/CustomTranslation.aspx.designer.cs
+END
+CustomTranslation.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/192/trunk/recaptcha-plugins/dotnet/test/CustomTranslation.aspx.cs
+END
+FormView.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/FormView.aspx.designer.cs
+END
+MultiViewInUpdatePanel.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/MultiViewInUpdatePanel.aspx.designer.cs
+END
+MultiViewInUpdatePanel.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/MultiViewInUpdatePanel.aspx.cs
+END
+Iframe.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/191/trunk/recaptcha-plugins/dotnet/test/Iframe.aspx
+END
+UpdatePanel.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/UpdatePanel.aspx.designer.cs
+END
+ListView.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/ListView.aspx
+END
+ValidationSummary.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/ValidationSummary.aspx
+END
+ValidationGroup.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/130/trunk/recaptcha-plugins/dotnet/test/ValidationGroup.aspx.designer.cs
+END
+ListView.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/ListView.aspx.cs
+END
+ValidationGroup.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/130/trunk/recaptcha-plugins/dotnet/test/ValidationGroup.aspx.cs
+END
+ValidationSummary.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/ValidationSummary.aspx.cs
+END
+CreateUserWizardCustom.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/123/trunk/recaptcha-plugins/dotnet/test/CreateUserWizardCustom.aspx.designer.cs
+END
+Default.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/Default.aspx
+END
+MultiView.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/MultiView.aspx
+END
+CreateUserWizard.aspx.designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/CreateUserWizard.aspx.designer.cs
+END
+CreateUserWizard.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/CreateUserWizard.aspx.cs
+END
+Default.aspx.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/121/trunk/recaptcha-plugins/dotnet/test/Default.aspx.cs
+END
+CustomTranslation.aspx
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/192/trunk/recaptcha-plugins/dotnet/test/CustomTranslation.aspx
+END
