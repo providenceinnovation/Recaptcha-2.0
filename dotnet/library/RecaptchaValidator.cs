@@ -19,8 +19,10 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -34,7 +36,7 @@ namespace Recaptcha
     /// </summary>
     public class RecaptchaValidator
     {
-        private const string VerifyUrl = "http://www.google.com/recaptcha/api/verify";
+        private const string VerifyUrl = "https://www.google.com/recaptcha/api/siteverify";
 
         private string privateKey;
         private string remoteIp;
@@ -72,12 +74,6 @@ namespace Recaptcha
             }
         }
 
-        public string Challenge
-        {
-            get { return this.challenge; }
-            set { this.challenge = value; }
-        }
-
         public string Response
         {
             get { return this.response; }
@@ -102,7 +98,6 @@ namespace Recaptcha
         {
             this.CheckNotNull(this.PrivateKey, "PrivateKey");
             this.CheckNotNull(this.RemoteIP, "RemoteIp");
-            this.CheckNotNull(this.Challenge, "Challenge");
             this.CheckNotNull(this.Response, "Response");
 
             if (this.challenge == string.Empty || this.response == string.Empty)
@@ -123,10 +118,9 @@ namespace Recaptcha
             request.ContentType = "application/x-www-form-urlencoded";
 
             string formdata = String.Format(
-                "privatekey={0}&remoteip={1}&challenge={2}&response={3}",
+                "secret={0}&remoteip={1}&response={2}",
                                     HttpUtility.UrlEncode(this.PrivateKey),
                                     HttpUtility.UrlEncode(this.RemoteIP),
-                                    HttpUtility.UrlEncode(this.Challenge),
                                     HttpUtility.UrlEncode(this.Response));
 
             byte[] formbytes = Encoding.ASCII.GetBytes(formdata);
@@ -136,7 +130,7 @@ namespace Recaptcha
                 requestStream.Write(formbytes, 0, formbytes.Length);
             }
 
-            string[] results;
+            Dictionary<string, string> results;
 
             try
             {
@@ -144,7 +138,20 @@ namespace Recaptcha
                 {
                     using (TextReader readStream = new StreamReader(httpResponse.GetResponseStream(), Encoding.UTF8))
                     {
-                        results = readStream.ReadToEnd().Split(new string[] { "\n", "\\n" }, StringSplitOptions.RemoveEmptyEntries);
+                        var response = readStream.ReadToEnd();
+                        results = response.Trim('{', '}', ' ', '\n')
+                                .Split(new string[] { "\n", "\\n" }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(strkvp => strkvp.TrimEnd(',').Split(new[] { ':' }, 1))
+                                .Select(kvp =>
+                                {
+                                    var key = kvp[0].Trim('"');
+                                    var value = kvp[1].Trim('"');
+                                    if (value[0] == '[') // concat error-codes
+                                    {
+                                        value = string.Join(", ", value.Trim('[', ']').Split(',').Select(v => v.Trim('"')));
+                                    }
+                                    return new KeyValuePair<string, string>(key, value);
+                                }).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
                     }
                 }
             }
@@ -154,12 +161,12 @@ namespace Recaptcha
                 return RecaptchaResponse.RecaptchaNotReachable;
             }
 
-            switch (results[0])
+            switch (results["success"])
             {
                 case "true":
                     return RecaptchaResponse.Valid;
                 case "false":
-                    return new RecaptchaResponse(false, results[1].Trim(new char[] { '\'' }));
+                    return new RecaptchaResponse(false, results["error-codes"]);
                 default:
                     throw new InvalidProgramException("Unknown status response.");
             }

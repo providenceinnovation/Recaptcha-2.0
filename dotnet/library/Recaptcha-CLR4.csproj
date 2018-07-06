@@ -76,7 +76,6 @@
     <Compile Include="Design\RecaptchaControlDesigner.cs" />
     <Compile Include="RecaptchaControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecaptchaControlMvc.cs" />
     <Compile Include="RecaptchaResponse.cs" />
     <Compile Include="RecaptchaValidator.cs" />
   </ItemGroup>

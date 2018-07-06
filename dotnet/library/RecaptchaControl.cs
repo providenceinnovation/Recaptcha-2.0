@@ -26,6 +26,7 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net;
+using System.Web.UI.HtmlControls;
 
 namespace Recaptcha
 {
@@ -38,8 +39,7 @@ namespace Recaptcha
     {
         #region Private Fields
 
-        private const string RECAPTCHA_CHALLENGE_FIELD = "recaptcha_challenge_field";
-        private const string RECAPTCHA_RESPONSE_FIELD = "recaptcha_response_field";
+        private const string RECAPTCHA_RESPONSE_FIELD = "g-recaptcha-response";
 
         private const string RECAPTCHA_SECURE_HOST = "https://www.google.com/recaptcha/api";
         private const string RECAPTCHA_HOST = "http://www.google.com/recaptcha/api";
@@ -177,6 +177,15 @@ namespace Recaptcha
             {
                 Page.Validators.Add(this);
             }
+
+            if (!skipRecaptcha)
+            {
+                var script = new HtmlGenericControl("script");
+                script.Attributes.Add("src", GenerateApiUrl(false));
+                script.Attributes.Add("async", "async");
+                script.Attributes.Add("defer", "defer");
+                Page.Header.Controls.Add(script);
+            }
         }
 
         /// <summary>
@@ -243,32 +252,84 @@ namespace Recaptcha
             output.Indent--;
             output.RenderEndTag();
 
-            // <script> display
-            output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
-            output.AddAttribute(HtmlTextWriterAttribute.Src, this.GenerateChallengeUrl(false), false);
-            output.RenderBeginTag(HtmlTextWriterTag.Script);
+            // g-recaptcha-response
+            // <div> display
+            output.AddAttribute(HtmlTextWriterAttribute.Class, "g-recaptcha");
+            output.AddAttribute("data-sitekey", this.PublicKey);
+            output.RenderBeginTag(HtmlTextWriterTag.Div);
             output.RenderEndTag();
 
             // <noscript> display
             output.RenderBeginTag(HtmlTextWriterTag.Noscript);
             output.Indent++;
-            output.AddAttribute(HtmlTextWriterAttribute.Src, this.GenerateChallengeUrl(true), false);
-            output.AddAttribute(HtmlTextWriterAttribute.Width, "500");
-            output.AddAttribute(HtmlTextWriterAttribute.Height, "300");
+
+            output.RenderBeginTag(HtmlTextWriterTag.Div);
+            output.Indent++;
+
+            output.AddStyleAttribute(HtmlTextWriterStyle.Width, "302px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Height, "422px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Position, "relative");
+            output.RenderBeginTag(HtmlTextWriterTag.Div);
+            output.Indent++;
+            
+            output.AddStyleAttribute(HtmlTextWriterStyle.Width, "302px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Height, "422px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Position, "absolute");
+            output.RenderBeginTag(HtmlTextWriterTag.Div);
+            output.Indent++;
+
+            output.AddAttribute(HtmlTextWriterAttribute.Src, this.GenerateApiUrl(true), false);
             output.AddAttribute("frameborder", "0");
+            output.AddAttribute("scrolling", "no");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Width, "302px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Height, "302px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BorderStyle, "none");
             output.RenderBeginTag(HtmlTextWriterTag.Iframe);
             output.RenderEndTag();
-            output.WriteBreak(); // modified to make XHTML-compliant. Patch by xitch13@gmail.com.
-            output.AddAttribute(HtmlTextWriterAttribute.Name, "recaptcha_challenge_field");
-            output.AddAttribute(HtmlTextWriterAttribute.Rows, "3");
-            output.AddAttribute(HtmlTextWriterAttribute.Cols, "40");
+
+            output.Indent--;
+            output.RenderEndTag();
+
+            output.Indent--;
+            output.RenderEndTag();
+            output.WriteLine();
+
+            output.AddStyleAttribute(HtmlTextWriterStyle.Width, "300px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Height, "60px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BorderStyle, "none");
+            output.AddStyleAttribute("bottom", "12px");
+            output.AddStyleAttribute("left", "25px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Margin, "0px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Padding, "0px");
+            output.AddStyleAttribute("right", "25px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, "#f9f9f9");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BorderWidth, "1px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BorderStyle, "solid");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BorderColor, "#c1c1c1");
+            output.AddStyleAttribute("border-radius", "3px");
+            output.RenderBeginTag(HtmlTextWriterTag.Div);
+            output.Indent++;
+
+            output.AddAttribute(HtmlTextWriterAttribute.Id, RECAPTCHA_RESPONSE_FIELD);
+            output.AddAttribute(HtmlTextWriterAttribute.Name, RECAPTCHA_RESPONSE_FIELD);
+            output.AddAttribute(HtmlTextWriterAttribute.Class, RECAPTCHA_RESPONSE_FIELD);
+            output.AddStyleAttribute(HtmlTextWriterStyle.Width, "250px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Height, "40px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BorderWidth, "1px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BorderStyle, "solid");
+            output.AddStyleAttribute(HtmlTextWriterStyle.BorderColor, "#c1c1c1");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Margin, "10px 25px");
+            output.AddStyleAttribute(HtmlTextWriterStyle.Padding, "0px");
+            output.AddStyleAttribute("resize", "none");
             output.RenderBeginTag(HtmlTextWriterTag.Textarea);
             output.RenderEndTag();
-            output.AddAttribute(HtmlTextWriterAttribute.Name, "recaptcha_response_field");
-            output.AddAttribute(HtmlTextWriterAttribute.Value, "manual_challenge");
-            output.AddAttribute(HtmlTextWriterAttribute.Type, "hidden");
-            output.RenderBeginTag(HtmlTextWriterTag.Input);
+
+            output.Indent--;
             output.RenderEndTag();
+
+            output.Indent--;
+            output.RenderEndTag();
+
             output.Indent--;
             output.RenderEndTag();
         }
@@ -325,15 +386,10 @@ namespace Recaptcha
                         RecaptchaValidator validator = new RecaptchaValidator();
                         validator.PrivateKey = this.PrivateKey;
                         validator.RemoteIP = Page.Request.UserHostAddress;
-                        validator.Challenge = Context.Request.Form[RECAPTCHA_CHALLENGE_FIELD];
                         validator.Response = Context.Request.Form[RECAPTCHA_RESPONSE_FIELD];
                         validator.Proxy = this.proxy;
 
-                        if (validator.Challenge == null)
-                        {
-                            this.recaptchaResponse = RecaptchaResponse.InvalidChallenge;
-                        }
-                        else if (validator.Response == null)
+                        if (validator.Response == null)
                         {
                             this.recaptchaResponse = RecaptchaResponse.InvalidResponse;
                         }
@@ -355,13 +411,20 @@ namespace Recaptcha
         /// <summary>
         /// This function generates challenge URL.
         /// </summary>
-        private string GenerateChallengeUrl(bool noScript)
+        private string GenerateApiUrl(bool noScript)
         {
             StringBuilder urlBuilder = new StringBuilder();
             urlBuilder.Append(Context.Request.IsSecureConnection || this.overrideSecureMode ? RECAPTCHA_SECURE_HOST : RECAPTCHA_HOST);
-            urlBuilder.Append(noScript ? "/noscript?" : "/challenge?");
-            urlBuilder.AppendFormat("k={0}&", this.PublicKey);
-            urlBuilder.AppendFormat("hl={0}&", this.Language);
+            if (noScript)
+            {
+                urlBuilder.Append("/fallback?");
+                urlBuilder.AppendFormat("k={0}&", this.PublicKey);
+            } else
+            {
+                urlBuilder.Append(".js?");
+            }
+            
+            urlBuilder.AppendFormat("hl={0}", this.Language);
             return urlBuilder.ToString();
         }
     }

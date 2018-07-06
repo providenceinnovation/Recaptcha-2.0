@@ -77,8 +77,8 @@ namespace Recaptcha
 
         public class CaptchaValidatorAttribute : ActionFilterAttribute
         {
-            private const string CHALLENGE_FIELD_KEY = "recaptcha_challenge_field";
-            private const string RESPONSE_FIELD_KEY = "recaptcha_response_field";
+            private const string CHALLENGE_FIELD_KEY = RECAPTCHA_CHALLENGE_FIELD;
+            private const string RESPONSE_FIELD_KEY = RECAPTCHA_RESPONSE_FIELD;
 
             private RecaptchaResponse recaptchaResponse;
 
