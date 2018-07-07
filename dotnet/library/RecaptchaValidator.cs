@@ -30,6 +30,7 @@ using System.Web;
 
 namespace Recaptcha
 {
+
     /// <summary>
     /// Calls the reCAPTCHA server to validate the answer to a reCAPTCHA challenge. Normally,
     /// you will use the RecaptchaControl class to insert a web control on your page. However
@@ -130,7 +131,7 @@ namespace Recaptcha
                 requestStream.Write(formbytes, 0, formbytes.Length);
             }
 
-            Dictionary<string, string> results;
+            RecaptchaApiResponse results = null;
 
             try
             {
@@ -139,19 +140,7 @@ namespace Recaptcha
                     using (TextReader readStream = new StreamReader(httpResponse.GetResponseStream(), Encoding.UTF8))
                     {
                         var response = readStream.ReadToEnd();
-                        results = response.Trim('{', '}', ' ', '\n')
-                                .Split(new string[] { "\n", "\\n" }, StringSplitOptions.RemoveEmptyEntries)
-                                .Select(strkvp => strkvp.TrimEnd(',').Split(new[] { ':' }, 1))
-                                .Select(kvp =>
-                                {
-                                    var key = kvp[0].Trim('"');
-                                    var value = kvp[1].Trim('"');
-                                    if (value[0] == '[') // concat error-codes
-                                    {
-                                        value = string.Join(", ", value.Trim('[', ']').Split(',').Select(v => v.Trim('"')));
-                                    }
-                                    return new KeyValuePair<string, string>(key, value);
-                                }).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                        results = Newtonsoft.Json.JsonConvert.DeserializeObject<RecaptchaApiResponse>(response);
                     }
                 }
             }
@@ -161,14 +150,17 @@ namespace Recaptcha
                 return RecaptchaResponse.RecaptchaNotReachable;
             }
 
-            switch (results["success"])
+            if (results == null)
             {
-                case "true":
-                    return RecaptchaResponse.Valid;
-                case "false":
-                    return new RecaptchaResponse(false, results["error-codes"]);
-                default:
-                    throw new InvalidProgramException("Unknown status response.");
+                throw new InvalidProgramException("Unknown status response.");
+            }
+
+            if (results.Success)
+            {
+                return RecaptchaResponse.Valid;
+            } else
+            {
+                return new RecaptchaResponse(false, string.Join(", ", results.ErrorCodes));
             }
         }
     }
